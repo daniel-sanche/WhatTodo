@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/pages/tasks/bloc/task_bloc.dart';
-import 'package:flutter_app/pages/labels/label_db.dart';
 import 'package:flutter_app/pages/projects/project_db.dart';
 import 'package:flutter_app/pages/projects/project.dart';
 import 'package:flutter_app/pages/about/about_us.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
-import 'package:flutter_app/pages/labels/label_bloc.dart';
-import 'package:flutter_app/pages/labels/label_widget.dart';
 import 'package:flutter_app/pages/projects/project_bloc.dart';
 import 'package:flutter_app/pages/projects/project_widget.dart';
 import 'package:flutter_app/utils/keys.dart';
@@ -78,10 +75,6 @@ class SideDrawer extends StatelessWidget {
             bloc: ProjectBloc(ProjectDB.get()),
             child: ProjectPage(),
           ),
-          BlocProvider(
-            bloc: LabelBloc(LabelDB.get()),
-            child: LabelPage(),
-          )
         ],
       ),
     );

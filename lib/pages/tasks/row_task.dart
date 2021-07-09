@@ -8,7 +8,6 @@ import 'package:flutter_app/utils/app_constant.dart';
 class TaskRow extends StatelessWidget {
   final Tasks tasks;
   static final date_label = "Date";
-  final List<String> labelNames = [];
 
   TaskRow(this.tasks);
 
@@ -45,7 +44,6 @@ class TaskRow extends StatelessWidget {
                             fontSize: FONT_SIZE_TITLE,
                             fontWeight: FontWeight.bold)),
                   ),
-                  getLabels(tasks.labelList),
                   Padding(
                     padding: const EdgeInsets.only(
                         left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
@@ -106,17 +104,4 @@ class TaskRow extends StatelessWidget {
     );
   }
 
-  Widget getLabels(List<String> labelList) {
-    if (labelList.isEmpty) {
-      return Container();
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(
-            left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
-        child: Text(tasks.labelList.join("  "),
-            key: ValueKey("taskLabels_${tasks.id}"),
-            style: TextStyle(fontSize: FONT_SIZE_LABEL)),
-      );
-    }
-  }
 }

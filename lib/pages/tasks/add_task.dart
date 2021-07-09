@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/models/priority.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
-import 'package:flutter_app/pages/labels/label.dart';
-import 'package:flutter_app/pages/labels/label_db.dart';
 import 'package:flutter_app/pages/projects/project.dart';
 import 'package:flutter_app/pages/projects/project_db.dart';
 import 'package:flutter_app/pages/tasks/bloc/add_task_bloc.dart';
@@ -90,17 +88,6 @@ class AddTaskScreen extends StatelessWidget {
               _showPriorityDialog(createTaskBloc, context);
             },
           ),
-          ListTile(
-              leading: Icon(Icons.label),
-              title: Text("Labels"),
-              subtitle: StreamBuilder<String>(
-                stream: createTaskBloc.labelSelection,
-                initialData: "No Labels",
-                builder: (context, snapshot) => Text(snapshot.data!),
-              ),
-              onTap: () {
-                _showLabelsDialog(context);
-              }),
           ListTile(
             leading: Icon(Icons.mode_comment),
             title: Text("Comments"),
@@ -187,24 +174,6 @@ class AddTaskScreen extends StatelessWidget {
         });
   }
 
-  Future<Status?> _showLabelsDialog(BuildContext context) async {
-    AddTaskBloc createTaskBloc = BlocProvider.of(context);
-    return showDialog<Status>(
-        context: context,
-        builder: (BuildContext context) {
-          return StreamBuilder<List<Label>>(
-              stream: createTaskBloc.labels,
-              initialData: <Label>[],
-              builder: (context, snapshot) {
-                return SimpleDialog(
-                  title: const Text('Select Labels'),
-                  children:
-                      buildLabels(createTaskBloc, context, snapshot.data!),
-                );
-              });
-        });
-  }
-
   List<Widget> buildProjects(
     AddTaskBloc createTaskBloc,
     BuildContext context,
@@ -228,28 +197,6 @@ class AddTaskScreen extends StatelessWidget {
       ));
     });
     return projects;
-  }
-
-  List<Widget> buildLabels(
-    AddTaskBloc createTaskBloc,
-    BuildContext context,
-    List<Label> labelList,
-  ) {
-    List<Widget> labels = [];
-    labelList.forEach((label) {
-      labels.add(ListTile(
-        leading: Icon(Icons.label, color: Color(label.colorValue), size: 18.0),
-        title: Text(label.name),
-        trailing: createTaskBloc.selectedLabels.contains(label)
-            ? Icon(Icons.close)
-            : Container(width: 18.0, height: 18.0),
-        onTap: () {
-          createTaskBloc.labelAddOrRemove(label);
-          Navigator.pop(context);
-        },
-      ));
-    });
-    return labels;
   }
 
   GestureDetector buildContainer(BuildContext context, Status status) {
@@ -286,7 +233,7 @@ class AddTaskProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: AddTaskBloc(TaskDB.get(), ProjectDB.get(), LabelDB.get()),
+      bloc: AddTaskBloc(TaskDB.get(), ProjectDB.get()),
       child: AddTaskScreen(),
     );
   }

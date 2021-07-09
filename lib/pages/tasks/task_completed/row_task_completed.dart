@@ -8,7 +8,6 @@ import 'package:flutter_app/utils/app_constant.dart';
 class TaskCompletedRow extends StatelessWidget {
   final Tasks tasks;
   static final date_label = "Date";
-  final List<String> labelNames = [];
 
   TaskCompletedRow(this.tasks);
 
@@ -45,7 +44,6 @@ class TaskCompletedRow extends StatelessWidget {
                             fontSize: FONT_SIZE_TITLE,
                             fontWeight: FontWeight.bold)),
                   ),
-                  getLabels(tasks.labelList),
                   Padding(
                     padding: const EdgeInsets.only(
                         left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
@@ -104,18 +102,4 @@ class TaskCompletedRow extends StatelessWidget {
     );
   }
 
-  Widget getLabels(List<String> labelList) {
-    if (labelList.isEmpty) {
-      return Container();
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(
-            left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
-        child: Text(tasks.labelList.join("  "),
-            style: TextStyle(
-                decoration: TextDecoration.lineThrough,
-                fontSize: FONT_SIZE_LABEL)),
-      );
-    }
-  }
 }

@@ -16,7 +16,6 @@ class Tasks {
   int dueDate, projectId;
   Status priority;
   TaskStatus? tasksStatus;
-  List<String> labelList = [];
 
   Tasks.create({
     required this.title,
