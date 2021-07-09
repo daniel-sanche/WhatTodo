@@ -1,6 +1,4 @@
-import 'package:flutter_app/db/app_db.dart';
 import 'package:flutter_app/pages/projects/project.dart';
-import 'package:sqflite/sqflite.dart';
 
 class ProjectDB {
   static final ProjectDB _projectDb = ProjectDB._internal([]);

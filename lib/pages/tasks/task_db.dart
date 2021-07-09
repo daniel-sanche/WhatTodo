@@ -1,7 +1,5 @@
-import 'package:flutter_app/db/app_db.dart';
 import 'package:flutter_app/pages/tasks/models/tasks.dart';
 import 'package:flutter_app/pages/projects/project.dart';
-import 'package:sqflite/sqflite.dart';
 
 class TaskDB {
   static final TaskDB _taskDb = TaskDB._internal([]);
