@@ -3,44 +3,26 @@ import 'package:flutter_app/pages/projects/project.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProjectDB {
-  static final ProjectDB _projectDb = ProjectDB._internal(AppDatabase.get());
+  static final ProjectDB _projectDb = ProjectDB._internal([]);
 
-  AppDatabase _appDatabase;
+  List<Project> _project_list;
 
   //private internal constructor to make it singleton
-  ProjectDB._internal(this._appDatabase);
+  ProjectDB._internal(this._project_list);
 
   static ProjectDB get() {
     return _projectDb;
   }
 
   Future<List<Project>> getProjects({bool isInboxVisible = true}) async {
-    var db = await _appDatabase.getDb();
-    var whereClause = isInboxVisible ? ";" : " WHERE ${Project.dbId}!=1;";
-    var result =
-        await db.rawQuery('SELECT * FROM ${Project.tblProject} $whereClause');
-    List<Project> projects = [];
-    for (Map<String, dynamic> item in result) {
-      var myProject = Project.fromMap(item);
-      projects.add(myProject);
-    }
-    return projects;
+    return this._project_list;
   }
 
   Future insertOrReplace(Project project) async {
-    var db = await _appDatabase.getDb();
-    await db.transaction((Transaction txn) async {
-      await txn.rawInsert('INSERT OR REPLACE INTO '
-          '${Project.tblProject}(${Project.dbId},${Project.dbName},${Project.dbColorCode},${Project.dbColorName})'
-          ' VALUES(${project.id},"${project.name}", ${project.colorValue}, "${project.colorName}")');
-    });
+    this._project_list.add(project);
   }
 
   Future deleteProject(int projectID) async {
-    var db = await _appDatabase.getDb();
-    await db.transaction((Transaction txn) async {
-      await txn.rawDelete(
-          'DELETE FROM ${Project.tblProject} WHERE ${Project.dbId}==$projectID;');
-    });
+
   }
 }
