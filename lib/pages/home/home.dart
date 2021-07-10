@@ -11,6 +11,7 @@ import 'package:flutter_app/pages/tasks/task_db.dart';
 import 'package:flutter_app/pages/tasks/task_widgets.dart';
 import 'package:flutter_app/utils/keys.dart';
 import 'package:flutter_app/utils/extension.dart';
+import 'package:flutter_app/auth/auth.dart';
 
 class HomePage extends StatelessWidget {
   final TaskBloc _taskBloc = TaskBloc(TaskDB.get());
@@ -83,6 +84,9 @@ class HomePage extends StatelessWidget {
                 SCREEN.COMPLETED_TASK, TaskCompletedPage());
             _taskBloc.refresh();
             break;
+          case MenuItem.LOGOUT:
+            AuthData.get().logout();
+            break;
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuItem>>[
@@ -92,6 +96,12 @@ class HomePage extends StatelessWidget {
             'Completed Tasks',
             key: ValueKey(CompletedTaskPageKeys.COMPLETED_TASKS),
           ),
+        ),
+        const PopupMenuItem<MenuItem>(
+          value: MenuItem.LOGOUT,
+          child: const Text(
+            'Logout',
+          ),
         )
       ],
     );
@@ -99,4 +109,4 @@ class HomePage extends StatelessWidget {
 }
 
 // This is the type used by the popup menu below.
-enum MenuItem { TASK_COMPLETED }
+enum MenuItem { TASK_COMPLETED, LOGOUT }
