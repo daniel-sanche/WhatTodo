@@ -13,33 +13,30 @@ import 'package:flutter_app/utils/extension.dart';
 
 import 'dart:html';
 
-void main() => runApp(MyApp());
+void main() async {
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          accentColor: Colors.orange,
-          primaryColor: const Color(0xFFDE4435),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: BlocProvider(
-          bloc: HomeBloc(),
-          child: AdaptiveHome(),
-        ));
-  }
+  // add this, and it should be the first line in main method
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Build home page
+  Widget home = new BlocProvider(bloc: HomeBloc(), child: AdaptiveHome());
+
+  // Run app!
+  runApp(new MaterialApp(
+    title: 'WhatToDo',
+    home: new LoginPage(homepage:home),
+    theme: ThemeData(
+      accentColor: Colors.orange,
+      primaryColor: const Color(0xFFDE4435),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    ),
+  ));
 }
+
 
 class AdaptiveHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String? token = window.localStorage["login-token"];
-    if (token == null){
-        return LoginDemo();
-    }
-    print(token);
     return context.isWiderScreen() ? WiderHomePage() : HomePage();
   }
 }

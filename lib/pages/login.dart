@@ -29,6 +29,14 @@ Future<String> login(String username, String password) async {
 }
 
 class LoginPage extends StatefulWidget {
+
+  const LoginPage({
+    Key? key,
+    this.homepage = const Text("logged in!"),
+  }) : super(key: key);
+
+  final Widget homepage;
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -39,14 +47,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = new TextEditingController();
   String? _token = null;
 
-
   @override
   Widget build(BuildContext context) {
-
     if (_token != null){
-        return  BlocProvider(bloc: HomeBloc(), child: AdaptiveHome());
+        // already logged on
+        return widget.homepage;
     }
-
+    // construct login page widget
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
