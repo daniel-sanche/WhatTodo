@@ -11,6 +11,8 @@ import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/login/signup.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
+import 'package:flutter_app/auth/auth.dart';
+import 'package:provider/provider.dart';
 
 Future<String> login(String username, String password) async {
   final response =
@@ -50,10 +52,19 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_token != null){
-        // already logged on
-        return widget.homepage;
+    // build login screen if not authenticated. Otherwise, load home page
+    return Consumer<AuthData>(
+        builder: (context, auth, child) {
+            if (auth.isAuthenticated){
+                // already logged on
+                return widget.homepage;
+            } else {
+                return buildLoginPage(context);
+            }
+        });
     }
+
+  Widget buildLoginPage(BuildContext context){
     // construct login page widget
     return Scaffold(
       backgroundColor: Colors.white,
@@ -109,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                    final future = login(userController.text, passwordController.text);
                    future.then((token) {
                      print("login success");
-                     setState(() {_token = token;});
+                     AuthData.get().authenticate(token, "1");
                    }).catchError((e){
                        print(e);
                        final snackBar = SnackBar(

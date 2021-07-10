@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/pages/about/about_us.dart';
 import 'package:flutter_app/pages/login/login.dart';
+import 'package:flutter_app/auth/auth.dart';
 import 'package:flutter_app/pages/home/home.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/pages/home/side_drawer.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_app/pages/projects/project_widget.dart';
 import 'package:flutter_app/pages/tasks/add_task.dart';
 import 'package:flutter_app/pages/tasks/task_completed/task_complted.dart';
 import 'package:flutter_app/utils/extension.dart';
+import 'package:provider/provider.dart';
 
 
 import 'dart:html';
@@ -24,7 +26,10 @@ void main() async {
   // Run app!
   runApp(new MaterialApp(
     title: 'WhatToDo',
-    home: new LoginPage(homepage:home),
+    home: ChangeNotifierProvider(
+      create: (context) => AuthData.get(),
+      child: new LoginPage(homepage:home),
+    ),
     theme: ThemeData(
       accentColor: Colors.orange,
       primaryColor: const Color(0xFFDE4435),
