@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_app/pages/home/home.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/signup.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 15, bottom: 50),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: passwordController,
@@ -124,11 +125,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: 130,
+              height: 100,
             ),
             FlatButton(
               onPressed: (){
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
               },
               child: Text(
                 'Create Account',
