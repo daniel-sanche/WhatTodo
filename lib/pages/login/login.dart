@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_app/pages/home/home.dart';
 import 'package:flutter_app/main.dart';
-import 'package:flutter_app/pages/signup.dart';
+import 'package:flutter_app/pages/login/signup.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 

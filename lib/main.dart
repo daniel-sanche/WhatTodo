@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/pages/about/about_us.dart';
-import 'package:flutter_app/pages/login.dart';
+import 'package:flutter_app/pages/login/login.dart';
 import 'package:flutter_app/pages/home/home.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/pages/home/side_drawer.dart';
