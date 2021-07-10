@@ -6,6 +6,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_app/pages/home/home.dart';
+import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/home/home_bloc.dart';
+import 'package:flutter_app/bloc/bloc_provider.dart';
 
 Future<String> login(String username, String password) async {
   final response =
@@ -24,19 +28,25 @@ Future<String> login(String username, String password) async {
   }
 }
 
-class LoginDemo extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _LoginDemoState createState() => _LoginDemoState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginDemoState extends State<LoginDemo> {
+class _LoginPageState extends State<LoginPage> {
 
   TextEditingController userController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  String? _token = null;
 
 
   @override
   Widget build(BuildContext context) {
+
+    if (_token != null){
+        return  BlocProvider(bloc: HomeBloc(), child: AdaptiveHome());
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -91,8 +101,7 @@ class _LoginDemoState extends State<LoginDemo> {
                    final future = login(userController.text, passwordController.text);
                    future.then((token) {
                      print("login success");
-                     window.localStorage["login-token"] = token;
-                     Navigator.pop(context);
+                     setState(() {_token = token;});
                    }).catchError((e){
                        print(e);
                        final snackBar = SnackBar(
