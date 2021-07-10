@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
               child: FlatButton(
                 onPressed: () {
                    final future = signup(userController.text, passwordController.text, passwordRepeatController.text);

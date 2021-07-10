@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
               child: FlatButton(
                 onPressed: () {
                    final future = login(userController.text, passwordController.text);
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                 'Create Account',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Colors.red, fontSize: 15),
               ),
             ),
           ],
