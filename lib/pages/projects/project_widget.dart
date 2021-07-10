@@ -21,9 +21,7 @@ class ProjectPage extends StatelessWidget {
         if (snapshot.hasData) {
           return ProjectExpansionTileWidget(snapshot.data!);
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return ProjectExpansionTileWidget([]);
         }
       },
     );
