@@ -28,6 +28,7 @@ class AuthData extends ChangeNotifier {
     userId = userId;
     notifyListeners();
     print(token);
+    print(userId);
   }
 }
 

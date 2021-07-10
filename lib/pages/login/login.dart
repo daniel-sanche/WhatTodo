@@ -14,7 +14,7 @@ import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/auth/auth.dart';
 import 'package:provider/provider.dart';
 
-Future<String> login(String username, String password) async {
+Future<Map<String, dynamic>> login(String username, String password) async {
   final response =
       await http.get(
               Uri.parse('http://0.0.0.0:5000/login?username='+username+'&password='+password),
@@ -23,7 +23,7 @@ Future<String> login(String username, String password) async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     final jsonPayload = jsonDecode(response.body);
-    return jsonPayload['token'];
+    return jsonPayload;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -118,9 +118,11 @@ class _LoginPageState extends State<LoginPage> {
               child: FlatButton(
                 onPressed: () {
                    final future = login(userController.text, passwordController.text);
-                   future.then((token) {
+                   future.then((jsonResult) {
                      print("login success");
-                     AuthData.get().authenticate(token, "1");
+                     final token = jsonResult['token'].toString();
+                     final userid = jsonResult['id'].toString();
+                     AuthData.get().authenticate(token, userid);
                    }).catchError((e){
                        print(e);
                        final snackBar = SnackBar(
