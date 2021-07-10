@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/bloc_provider.dart';
 import 'package:flutter_app/pages/about/about_us.dart';
+import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/home/home.dart';
 import 'package:flutter_app/pages/home/home_bloc.dart';
 import 'package:flutter_app/pages/home/side_drawer.dart';
@@ -8,6 +9,9 @@ import 'package:flutter_app/pages/projects/project_widget.dart';
 import 'package:flutter_app/pages/tasks/add_task.dart';
 import 'package:flutter_app/pages/tasks/task_completed/task_complted.dart';
 import 'package:flutter_app/utils/extension.dart';
+
+
+import 'dart:html';
 
 void main() => runApp(MyApp());
 
@@ -31,6 +35,11 @@ class MyApp extends StatelessWidget {
 class AdaptiveHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String? token = window.localStorage["login-token"];
+    if (token == null){
+        return LoginDemo();
+    }
+    print(token);
     return context.isWiderScreen() ? WiderHomePage() : HomePage();
   }
 }
